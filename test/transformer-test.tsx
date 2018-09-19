@@ -1,12 +1,10 @@
-import {setupDefaultTransformers} from '../src/default-transformers'
 import {createJessieElement} from '../src/jsx'
 import jsdom from 'jsdom'
 
 describe('transformer-test', function () {
-  beforeAll(setupDefaultTransformers)
 
   it('className becomes class', function () {
-    const element = <div className="test"/>
+    const element = <div className='test'/>
     expect(element.toDOM(createDocument()).outerHTML).toBe('<div class="test"></div>')
   })
 
@@ -39,7 +37,7 @@ describe('transformer-test', function () {
     })
 
     it('camelCase styles', function () {
-      const element = <div style={{'borderColor': 'red'}}/>
+      const element = <div style={{borderColor: 'red'}}/>
       expect(element.toDOM(createDocument()).outerHTML).toBe('<div style="border-color: red"></div>')
     })
   })

@@ -1,11 +1,14 @@
 {
-  "name": "welcome",
-  "private": true,
-  "version": "2.0.0",
+  "name": "jessiedom",
+  "version": "1.0.0",
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^23.3.2",
     "@types/jsdom": "^11.12.0",
+    "@types/node": "^10.10.1",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.4.0",
+    "gulp-typescript": "^5.0.0-alpha.3",
     "jest": "^23.6.0",
     "jsdom": "^12.0.0",
     "ts-jest": "^23.1.4",

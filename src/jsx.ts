@@ -5,7 +5,9 @@ interface Attributes {
   [key: string]: any
 }
 
-type ChildType = string | HTMLElement | JessieElementImpl | undefined | null | false | true
+setupDefaultTransformers()
+
+type ChildType = string | Node | JessieElementImpl | undefined | null | false | true
 
 interface TransformedAttribute {
   name: string
@@ -29,14 +31,13 @@ class JessieElementImpl implements JessieElement {
     this.children = childArray.concat(...children.map(child => isArrayLike(child) ? child : [child]))
   }
 
-  toDOM(document: Document) {
+  public toDOM(document: Document) {
     const that = this
     const element = document.createElement(this.tagName)
     handleAttributes(element, this.attributes)
 
-
     for (const child of this.children) {
-      let outputtable: HTMLElement
+      let outputtable: Node
       if (child instanceof JessieElementImpl) {
         outputtable = child.toDOM(document)
       } else if (child === null || child === undefined || child === false || child === true) {
@@ -48,18 +49,18 @@ class JessieElementImpl implements JessieElement {
       element.appendChild(outputtable)
     }
 
-    function handleAttributes(element: HTMLElement, attributes: any) {
+    function handleAttributes(domElement: HTMLElement, attributes: any) {
       for (const attributeName of Object.keys(attributes)) {
-        handleAttribute(element, attributeName, attributes[attributeName])
+        handleAttribute(domElement, attributeName, attributes[attributeName])
       }
     }
 
-    function handleAttribute(element: HTMLElement, attributeName: string, value: any) {
-      const transformedAttribute = transformAttribute(that, attributeName, value, element)
+    function handleAttribute(domElement: HTMLElement, attributeName: string, value: any) {
+      const transformedAttribute = transformAttribute(that, attributeName, value, domElement)
       if (typeof transformedAttribute === 'string') {
-        element.setAttribute(attributeName, transformedAttribute)
+        domElement.setAttribute(attributeName, transformedAttribute)
       } else {
-        handleAttributes(element, transformedAttribute)
+        handleAttributes(domElement, transformedAttribute)
       }
     }
     return element
@@ -89,11 +90,8 @@ export function createJessieElement(tagName: string, attributes: Attributes, ...
   }
 }
 
+export default createJessieElement
 
-function isArrayLike<T>(t: T | T[]): t is Array<T> {
+function isArrayLike<T>(t: T | T[]): t is T[] {
   return typeof t !== 'string' && (length in (t as any))
-}
-
-export function initialize() {
-  setupDefaultTransformers()
 }

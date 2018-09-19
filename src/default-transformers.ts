@@ -1,5 +1,4 @@
 import {register as registerTransformer} from './transformers'
-import {JessieElement} from './jsx'
 
 export function setupDefaultTransformers() {
   // className -> class

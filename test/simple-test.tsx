@@ -1,9 +1,7 @@
-import {setupDefaultTransformers} from '../src/default-transformers'
 import {createJessieElement} from '../src/jsx'
 import jsdom from 'jsdom'
 
 describe('simple-test', function() {
-  beforeAll(setupDefaultTransformers)
 
   it('a simple element', function() {
     const element = <div>test</div>
@@ -37,7 +35,7 @@ describe('simple-test', function() {
   })
 
   it('attributes', function() {
-    const element = <div class="test" />
+    const element = <div class='test' />
     expect(element.toDOM(createDocument()).outerHTML).toBe('<div class="test"></div>')
   })
 })

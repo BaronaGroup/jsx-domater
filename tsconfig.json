@@ -2,7 +2,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "allowJs": false,
-    "target": "es2017",
+    "target": "es2016",
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noUnusedLocals": true,
