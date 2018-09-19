@@ -19,7 +19,7 @@
     "module": "commonjs"
   },
   "include": [
-    "server/**/*",
+    "src/**/*",
     "test/**/*"
   ]
 }
