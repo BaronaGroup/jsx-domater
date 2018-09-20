@@ -7,20 +7,20 @@ interface Attributes {
 
 setupDefaultTransformers()
 
-type ChildType = string | Node | DomaterElementImpl | undefined | null | false | true
+type ChildType = string | Node | DomaterElement | undefined | null | false | true
 
 interface TransformedAttribute {
   name: string
   value: string
 }
 
-export interface DomaterElement {
+export interface IDomaterElement {
   tagName: string
   attributes: Attributes
   children: ChildType[]
 }
 
-class DomaterElementImpl implements DomaterElement {
+export class DomaterElement implements IDomaterElement {
   public readonly tagName: string
   public readonly attributes: Attributes
   public readonly children: ChildType[]
@@ -31,14 +31,14 @@ class DomaterElementImpl implements DomaterElement {
     this.children = childArray.concat(...children.map(child => isArrayLike(child) ? child : [child]))
   }
 
-  public toDOM(document: Document) {
+  public toDOM(document: Document): HTMLElement {
     const that = this
     const element = document.createElement(this.tagName)
     handleAttributes(element, this.attributes)
 
     for (const child of this.children) {
       let outputtable: Node
-      if (child instanceof DomaterElementImpl) {
+      if (child instanceof DomaterElement) {
         outputtable = child.toDOM(document)
       } else if (child === null || child === undefined || child === false || child === true) {
         outputtable = document.createComment('')
@@ -77,7 +77,7 @@ export function createDOMElement(tagName: string, attributes: Attributes, ...chi
   if (typeof tagName !== 'string') {
     throw new Error('Components are not supported.')
   } else {
-    return new DomaterElementImpl(tagName, attributes, children).toDOM(document)
+    return new DomaterElement(tagName, attributes, children).toDOM(document)
   }
 }
 
@@ -86,7 +86,7 @@ export function createDomaterElement(tagName: string, attributes: Attributes, ..
   if (typeof tagName !== 'string') {
     throw new Error('Components are not supported.')
   } else {
-    return new DomaterElementImpl(tagName, attributes, children)
+    return new DomaterElement(tagName, attributes, children)
   }
 }
 

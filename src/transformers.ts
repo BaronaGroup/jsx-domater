@@ -1,6 +1,6 @@
-import {DomaterElement} from './jsx'
+import {IDomaterElement} from './jsx'
 
-type Transformer = (value: any, attributeName: string, element: DomaterElement, htmlElement: HTMLElement) => any
+type Transformer = (value: any, attributeName: string, element: IDomaterElement, htmlElement: HTMLElement) => any
 
 interface TransformerDeclaration {
   transformer: Transformer
