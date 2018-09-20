@@ -1,12 +1,11 @@
-# JessieDOM -- JSX to DOM
+# JSX-Domater -- JSX to DOM
 
 This is a simple library that in combination with other code transformation tools such as
 babel or typescript allows you to use JSX to create DOM nodes.
 
-If you are simply targeting a browser you'll perhaps want to use [jsx-dom](https://www.npmjs.com/package/jsx-dom)
-instead as a slightly more complete options. The main downside of that library though is that
-it expect to find a `document` object in the global scope, which is a problem if you're doing,
-say, server-side rendering with jsdom.
+If you are simply targeting a browser there are a number of other libraries that are probably
+just as good or better. The vast majority of them however expect to find a `document` object in the global scope, 
+which is a problem if you're doing, say, server-side rendering with jsdom.
 
 And that's where this library comes in.
 
@@ -15,13 +14,13 @@ And that's where this library comes in.
 The library exports two functions that can act as the JSX `createElement` function:
 
 - `createDOMElement` which creates a straight up DOM node using global document
-- `createJessieElement` which creates an object, on which you can call `.toDOM(document)` with
+- `createDomaterElement` which creates an object, on which you can call `.toDOM(document)` with
   any document object you want. This is also exported as plain `createElement`, which can be useful
   at times. 
   
 The recommended way to do things is to set up is to import one of the two functions and set up
 your build to use it instead of `React.createElement`. With typescript that'll happen by
-setting the value for the `jsxFactory` config variable to `createJessieElement`
+setting the value for the `jsxFactory` config variable to `createDomaterElement`
 
 ## Features
 

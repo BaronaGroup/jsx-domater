@@ -7,20 +7,20 @@ interface Attributes {
 
 setupDefaultTransformers()
 
-type ChildType = string | Node | JessieElementImpl | undefined | null | false | true
+type ChildType = string | Node | DomaterElementImpl | undefined | null | false | true
 
 interface TransformedAttribute {
   name: string
   value: string
 }
 
-export interface JessieElement {
+export interface DomaterElement {
   tagName: string
   attributes: Attributes
   children: ChildType[]
 }
 
-class JessieElementImpl implements JessieElement {
+class DomaterElementImpl implements DomaterElement {
   public readonly tagName: string
   public readonly attributes: Attributes
   public readonly children: ChildType[]
@@ -38,7 +38,7 @@ class JessieElementImpl implements JessieElement {
 
     for (const child of this.children) {
       let outputtable: Node
-      if (child instanceof JessieElementImpl) {
+      if (child instanceof DomaterElementImpl) {
         outputtable = child.toDOM(document)
       } else if (child === null || child === undefined || child === false || child === true) {
         outputtable = document.createComment('')
@@ -67,7 +67,7 @@ class JessieElementImpl implements JessieElement {
   }
 }
 
-function transformAttribute(element: JessieElement, attributeName: string, value: any, htmlElement: HTMLElement): string | TransformedAttribute {
+function transformAttribute(element: DomaterElement, attributeName: string, value: any, htmlElement: HTMLElement): string | TransformedAttribute {
   const transformers = getTransformers(element.tagName, attributeName)
   return transformers.reduce((memo: any, transformer) => transformer(memo, attributeName, element, htmlElement), value)
 }
@@ -77,20 +77,20 @@ export function createDOMElement(tagName: string, attributes: Attributes, ...chi
   if (typeof tagName !== 'string') {
     throw new Error('Components are not supported.')
   } else {
-    return new JessieElementImpl(tagName, attributes, children).toDOM(document)
+    return new DomaterElementImpl(tagName, attributes, children).toDOM(document)
   }
 }
 
-export function createJessieElement(tagName: string, attributes: Attributes, ...children: ChildType[]) {
+export function createDomaterElement(tagName: string, attributes: Attributes, ...children: ChildType[]) {
   attributes = attributes || {}
   if (typeof tagName !== 'string') {
     throw new Error('Components are not supported.')
   } else {
-    return new JessieElementImpl(tagName, attributes, children)
+    return new DomaterElementImpl(tagName, attributes, children)
   }
 }
 
-export default createJessieElement
+export default createDomaterElement
 
 function isArrayLike<T>(t: T | T[]): t is T[] {
   return typeof t !== 'string' && (length in (t as any))

@@ -1,4 +1,4 @@
-import {createJessieElement} from '../src/jsx'
+import {createDomaterElement} from '../src/jsx'
 import jsdom from 'jsdom'
 
 describe('transformer-test', function () {

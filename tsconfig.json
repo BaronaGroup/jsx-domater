@@ -8,9 +8,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "jsx": "react",
-    "jsxFactory": "createJessieElement",
+    "jsxFactory": "createDomaterElement",
     "esModuleInterop": true,
     "resolveJsonModule": true,
+    "declaration": true,
     "lib": [
       "es2016",
       "es2017",

@@ -1,7 +1,7 @@
 {
-  "name": "jessiedom",
+  "name": "jsx-domater",
   "description": "Create DOM nodes using JSX, with jsdom support",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^23.3.2",
@@ -45,12 +45,14 @@
     "homepage": "https://github.com/BaronaGroup/jessiedom",
     "repository": {
       "type": "git",
-      "url": "BaronaGroup/jessiedom"
+      "url": "BaronaGroup/jsx-domater"
     },
     "license": "MIT",
     "author": {
       "name": "Tapani Haka"
     },
-    "main": "dist/jsx"
+    "files": ["dist/*"],
+    "main": "dist/jsx",
+    "types": "dist/jsx/jsx.d.ts"
   }
 }
