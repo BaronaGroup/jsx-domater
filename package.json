@@ -55,5 +55,5 @@
     "dist/*"
   ],
   "main": "dist/jsx",
-  "types": "dist/jsx/jsx.d.ts"
+  "types": "dist/jsx.d.ts"
 }
