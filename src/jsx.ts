@@ -8,6 +8,7 @@ interface Attributes {
 setupDefaultTransformers()
 
 type ChildType = string | Node | DomaterElement | undefined | null | false | true
+type ElementFunction = (attributes: Attributes, children: ChildType[]) => DomaterElement
 
 interface TransformedAttribute {
   name: string
@@ -73,18 +74,13 @@ function transformAttribute(element: DomaterElement, attributeName: string, valu
 }
 
 export function createDOMElement(tagName: string, attributes: Attributes, ...children: ChildType[]) {
-  attributes = attributes || {}
-  if (typeof tagName !== 'string') {
-    throw new Error('Components are not supported.')
-  } else {
-    return new DomaterElement(tagName, attributes, children).toDOM(document)
-  }
+  return createDomaterElement(tagName, attributes, ...children).toDOM(document)
 }
 
-export function createDomaterElement(tagName: string, attributes: Attributes, ...children: ChildType[]) {
+export function createDomaterElement(tagName: string | ElementFunction, attributes: Attributes, ...children: ChildType[]) {
   attributes = attributes || {}
   if (typeof tagName !== 'string') {
-    throw new Error('Components are not supported.')
+    return tagName(attributes, children)
   } else {
     return new DomaterElement(tagName, attributes, children)
   }

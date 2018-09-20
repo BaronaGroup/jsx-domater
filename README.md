@@ -60,3 +60,13 @@ for `onClick` to match `click` event; this is not done for any other uppercase c
 
 Groundwork exists for setting up other custom attribute transformations as well, but
 at this time this functionality is not documented.
+
+### Functions as elements
+
+You can have function acting as custom elements to allow for simple encapsulated behaviors. 
+    
+    function MyParagraph(attributes, children) {
+        return <p class={[attributes.spoiler && 'spoiler']} >{children}</p>    
+    }
+
+    <MyParagraph spoiler={false}>Hello</MyParagraph>

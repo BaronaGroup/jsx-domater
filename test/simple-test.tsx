@@ -38,6 +38,12 @@ describe('simple-test', function() {
     const element = <div class='test' />
     expect(element.toDOM(createDocument()).outerHTML).toBe('<div class="test"></div>')
   })
+
+  it('function as element', function() {
+    const MyDiv = (attributes: any) => <div>{attributes.text}</div>
+    const element = <MyDiv text='test' />
+    expect(element.toDOM(createDocument()).outerHTML).toBe('<div>test</div>')
+  })
 })
 
 function createDocument() {
