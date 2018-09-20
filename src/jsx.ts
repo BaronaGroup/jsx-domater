@@ -93,5 +93,5 @@ export function createDomaterElement(tagName: string, attributes: Attributes, ..
 export default createDomaterElement
 
 function isArrayLike<T>(t: T | T[]): t is T[] {
-  return typeof t !== 'string' && (length in (t as any))
+  return typeof t !== 'string' && ('length' in (t as any))
 }
