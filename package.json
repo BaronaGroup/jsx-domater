@@ -21,6 +21,7 @@
     "test": "jest",
     "tslint": "tslint --project tsconfig.json",
     "tslintfix": "npm run tslint -- --fix",
+    "lint": "npm run tslint",
     "build": "gulp build",
     "gulp": "gulp",
     "prepare": "npm run gulp dist",
