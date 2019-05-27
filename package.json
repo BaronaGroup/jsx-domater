@@ -15,7 +15,7 @@
     "npm-release": "1.0.0",
     "ts-jest": "23.1.4",
     "tslint": "5.16.0",
-    "typescript": "3.0.3"
+    "typescript": "3.4.5"
   },
   "scripts": {
     "test": "jest",
