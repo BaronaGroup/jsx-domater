@@ -2,35 +2,45 @@
 
 const gulp = require('gulp'),
   ts = require('gulp-typescript'),
-  clean = require('gulp-clean'),
+  gulpClean = require('gulp-clean'),
   tsProject = ts.createProject('tsconfig.json')
 
-gulp.task('clean-build', function () {
-  return gulp.src('build', {read: false})
-    .pipe(clean())
-})
 
-gulp.task('clean-dist', function () {
-  return gulp.src('dist', {read: false})
-    .pipe(clean())
-})
+function cleanBuild() {
+  return gulp.src('build/*', {read: false})
+    .pipe(gulpClean())
+}
 
-gulp.task('clean', ['clean-build', 'clean-dist'])
+function cleanDist() {
+  return gulp.src('dist/*', {read: false})
+    .pipe(gulpClean())
+}
 
-gulp.task('ts', function () {
+const clean = gulp.parallel(cleanBuild, cleanDist)
+
+
+function buildTS() {
   return tsProject.src()
     .pipe(tsProject())
     .pipe(gulp.dest('build'))
-})
+}
 
-gulp.task('dist', ['clean', 'ts'], function() {
+
+function copySrcToDist() {
   // Typescript is supposed to do this for us, but it creates js failes instead of json files and still attempts
   // to require the json files, which of course fails. This is a quick and easy workaround.
   return gulp
     .src('build/src/**/*')
     .pipe(gulp.dest('dist'))
-})
+}
 
-gulp.task('build', ['ts'])
+const dist = gulp.series(clean, buildTS, copySrcToDist),
+  build = buildTS,
+  defaultBuild = gulp.series(clean, buildTS)
 
-gulp.task('default', ['clean', 'build'])
+module.exports = {
+  build,
+  clean,
+  dist,
+  default: defaultBuild
+}
