@@ -13,7 +13,7 @@
     "jest": "23.6.0",
     "jsdom": "12.2.0",
     "npm-release": "1.0.0",
-    "ts-jest": "23.1.4",
+    "ts-jest": "24.0.2",
     "tslint": "5.16.0",
     "typescript": "3.4.5"
   },
